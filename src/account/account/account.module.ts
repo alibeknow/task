@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ConfigModule as CustomConfigModule } from '@shared/config';
-import { DatabaseModule } from '@shared/db';
 import { AccountController } from './account.controller';
-import { AccountService } from './account.service';
+import { AccountService } from '@shared/account';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AccountEntity } from '../../shared/account/account.entity';
 import {
   MESSAGE_BUS_PROVIDER,
   clientFactory,
@@ -11,7 +12,7 @@ import {
 } from '@shared/microservices';
 
 @Module({
-  imports: [DatabaseModule, CustomConfigModule],
+  imports: [TypeOrmModule.forFeature([AccountEntity]), CustomConfigModule],
   controllers: [AccountController],
   providers: [
     {
@@ -27,5 +28,6 @@ import {
     },
     AccountService,
   ],
+  exports: [AccountService],
 })
 export class AccountModule {}

@@ -7,18 +7,18 @@ import { AccountEntity } from '@shared/account';
 export class AccountService {
   constructor(
     @InjectRepository(AccountEntity)
-    private usersRepository: Repository<AccountEntity>,
+    private readonly accountRepository: Repository<AccountEntity>,
   ) {}
 
   findAll(): Promise<AccountEntity[]> {
-    return this.usersRepository.find();
+    return this.accountRepository.find();
   }
 
   findOne(id: string): Promise<AccountEntity | null> {
-    return this.usersRepository.findOneBy({ id });
+    return this.accountRepository.findOneBy({ id });
   }
 
   async remove(id: string): Promise<void> {
-    await this.usersRepository.delete(id);
+    await this.accountRepository.delete(id);
   }
 }

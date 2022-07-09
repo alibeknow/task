@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@shared/config';
 import { DatabaseModule } from '@shared/db';
+import { ConfigModule } from '@shared/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
-import { join } from 'path';
+import { AccountModule } from './accounts/account.module';
 
 @Module({
   imports: [
@@ -14,10 +14,11 @@ import { join } from 'path';
       driver: ApolloDriver,
       debug: true,
       playground: true,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: true,
       sortSchema: true,
-      plugins: [ApolloServerPluginLandingPageLocalDefault],
+      installSubscriptionHandlers: true,
     }),
+    AccountModule,
   ],
 })
-export class AppModule {}
+export class AppGatewayModule {}

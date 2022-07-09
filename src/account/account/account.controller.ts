@@ -1,7 +1,7 @@
 import { Controller, Inject } from '@nestjs/common';
 import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices';
 import { ServiceEvents } from '@shared/microservices';
-import { AccountService } from './account.service';
+import { AccountService } from '@shared/account';
 import { AccountDto } from './account.dtos';
 
 @Controller()
@@ -13,7 +13,7 @@ export class AccountController {
     @Ctx() context: RmqContext,
     @Payload() eventData: AccountDto,
   ) {
-    await this.accountService.getAccount(eventData);
+    await this.accountService.findOne(eventData.accountId);
     const channel = context.getChannelRef();
     channel.ack(context.getMessage());
   }

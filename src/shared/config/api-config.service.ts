@@ -110,13 +110,6 @@ export class ApiConfigService {
     return this.getBoolean('ENABLE_DOCUMENTATION');
   }
 
-  get authConfig() {
-    return {
-      jwtExpirationTime: this.getNumber('JWT_EXPIRATION_TIME'),
-      jwtSecret: this.getString('JWT_SECRET'),
-    };
-  }
-
   get appConfig() {
     return {
       port: this.getString('PORT'),

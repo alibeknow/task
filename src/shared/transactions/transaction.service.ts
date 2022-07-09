@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionsEntity } from '@shared/transactions';
-import { DeepPartial, Repository } from 'typeorm';
-import { TransactionDto } from './transaction.dtos';
+import { Repository } from 'typeorm';
+import { TransactionDto } from '@transaction/transaction';
 
 @Injectable()
 export class TransactionService {

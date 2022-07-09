@@ -3,7 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { ConfigModule as CustomConfigModule } from '@shared/config';
 import { DatabaseModule } from '@shared/db';
 import { TransactionController } from './transaction.controller';
-import { TransactionService } from './transaction.service';
+import { TransactionService } from '@shared/transactions';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TransactionsEntity } from '../../shared/transactions/transaction.entity';
 import {
   MESSAGE_BUS_PROVIDER,
   clientFactory,
@@ -11,7 +13,7 @@ import {
 } from '@shared/microservices';
 
 @Module({
-  imports: [DatabaseModule, CustomConfigModule],
+  imports: [TypeOrmModule.forFeature([TransactionsEntity]), CustomConfigModule],
   controllers: [TransactionController],
   providers: [
     {
@@ -27,5 +29,6 @@ import {
     },
     TransactionService,
   ],
+  exports: [TransactionService],
 })
 export class TransactionModule {}

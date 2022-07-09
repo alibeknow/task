@@ -1,15 +1,9 @@
+import { ConfigModule } from '@shared/config';
 import { DatabaseModule } from '@shared/db';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { TransactionModule } from './transaction';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    TransactionModule,
-    DatabaseModule,
-  ],
+  imports: [ConfigModule, TransactionModule, DatabaseModule],
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { Controller, Inject } from '@nestjs/common';
 import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices';
 import { ServiceEvents } from '@shared/microservices';
-import { TransactionService } from './transaction.service';
+import { TransactionService } from '@shared/transactions';
 import { TransactionDto } from './transaction.dtos';
 
 @Controller()

@@ -24,7 +24,7 @@
       "type": "application",
       "root": "src/gateway",
       "sourceRoot": "src/gateway",
-      "entryFile": "gateway/main",
+      "entryFile": "src/gateway/main",
       "compilerOptions": {
         "tsConfigPath": "./tsconfig.json"
       }
