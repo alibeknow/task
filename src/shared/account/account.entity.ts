@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { AbstractEntity } from '../abstract.entity';
+import { Entity, Column, OneToMany } from 'typeorm';
+import { AbstractEntity } from '@shared/abstract.entity';
+import { TransactionsEntity } from '@shared/transactions';
 
 @Entity()
 export class AccountEntity extends AbstractEntity {
@@ -14,4 +15,7 @@ export class AccountEntity extends AbstractEntity {
 
   @Column({ type: 'decimal' })
   balance!: number;
+
+  @OneToMany((type) => TransactionsEntity, (transaction) => transaction.account) // note: we will create author property in the Photo class below
+  transactions!: TransactionsEntity[];
 }

@@ -1,3 +1,4 @@
+import { DatabaseModule } from '@shared/db';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TransactionModule } from './transaction';
@@ -8,6 +9,7 @@ import { TransactionModule } from './transaction';
       isGlobal: true,
     }),
     TransactionModule,
+    DatabaseModule,
   ],
 })
 export class AppModule {}

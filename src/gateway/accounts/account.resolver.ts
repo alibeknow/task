@@ -3,7 +3,7 @@ import { AccountService } from './account.service';
 import { Query } from '@nestjs/common';
 import { AccountSchema } from '@shared/account';
 import { TransactionSchema } from '@shared/transactions';
-import { TransactionService } from '@transaction/';
+import { TransactionService } from '@transaction/transaction';
 
 @Resolver((of) => AccountSchema)
 export class AuthorsResolver {

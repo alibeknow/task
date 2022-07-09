@@ -1,10 +1,20 @@
-import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { TransactionSchema } from '@shared/transactions';
 
 @ObjectType({ description: 'account' })
 export class AccountSchema {
   @Field(() => ID)
   id!: string;
 
-  @Field((type) => Int)
-  balance!: number;
+  @Field()
+  balance!: string;
+
+  @Field()
+  firstName!: string;
+
+  @Field()
+  lastName!: string;
+
+  @Field((type) => [TransactionSchema])
+  transactions!: TransactionSchema[];
 }
