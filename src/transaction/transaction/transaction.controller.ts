@@ -4,10 +4,11 @@ import { ServiceEvents } from '@shared/microservices';
 import { TransactionService } from '@shared/transactions';
 import { TransactionDto } from './transaction.dtos';
 import { logger } from '../../shared/logger/logger';
+import { TransactionProvider } from './transaction.provider';
 
 @Controller()
 export class TransactionController {
-  constructor(private readonly transactionService: TransactionService) {}
+  constructor(private readonly transactionService: TransactionProvider) {}
 
   @EventPattern(ServiceEvents.TRANSACTION_SEND)
   async eventHandler(
@@ -16,7 +17,7 @@ export class TransactionController {
   ) {
     logger.info(eventData, 'recieve the message');
     try {
-      const data = await this.transactionService.create(eventData);
+      const data = await this.transactionService.checkAndCreate(eventData);
       const channel = context.getChannelRef();
       channel.ack(context.getMessage());
       return data;

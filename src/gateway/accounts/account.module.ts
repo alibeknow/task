@@ -5,17 +5,15 @@ import {
 } from '@shared/microservices';
 import { Module } from '@nestjs/common';
 import { AccountResolver } from './account.resolver';
-import { TransactionService, TransactionsEntity } from '@shared/transactions';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountEntity, AccountService } from '@shared/account';
 import { AccController } from './account.controller';
 import { ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AccountEntity, TransactionsEntity])],
+  imports: [TypeOrmModule.forFeature([AccountEntity])],
   providers: [
     AccountService,
-    TransactionService,
     AccountResolver,
     {
       provide: RABBIT_TRANSACTION_SEND_QUEUE,
@@ -30,5 +28,6 @@ import { ConfigService } from '@nestjs/config';
     },
   ],
   controllers: [AccController],
+  exports: [AccountService],
 })
 export class AccountModule {}

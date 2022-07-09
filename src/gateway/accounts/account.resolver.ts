@@ -1,8 +1,7 @@
 import { Inject } from '@nestjs/common';
-import { Args, Parent, ResolveField, Resolver, Query } from '@nestjs/graphql';
+import { Args, Resolver, Query } from '@nestjs/graphql';
 import { AccountService } from '@shared/account';
 import { AccountEntity } from '@shared/account';
-import { TransactionService, TransactionsEntity } from '@shared/transactions';
 import { MESSAGE_BUS_PROVIDER, ServiceEvents } from '@shared/microservices';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
@@ -13,7 +12,6 @@ import { TransactionDto } from '../../transaction/transaction/transaction.dtos';
 export class AccountResolver {
   constructor(
     private readonly accountService: AccountService,
-    private readonly transactionService: TransactionService,
     @Inject(MESSAGE_BUS_PROVIDER) private messageBusClient: ClientProxy,
   ) {}
 
@@ -21,12 +19,6 @@ export class AccountResolver {
   async getAccount(@Args('id') id: string) {
     const account = await this.accountService.findOne(id);
     if (account) return account;
-  }
-
-  @ResolveField('transactions', () => [TransactionsEntity])
-  async getTransactions(@Parent() author: AccountEntity) {
-    const { id } = author;
-    return this.transactionService.getAllFrom(id);
   }
 
   async sendMoney(metadataEvent: TransactionDto) {

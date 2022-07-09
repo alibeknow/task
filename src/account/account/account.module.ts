@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ConfigModule as CustomConfigModule } from '@shared/config';
 import { AccountController } from './account.controller';
 import { AccountService } from '@shared/account';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AccountEntity } from '../../shared/account/account.entity';
+import { AccountEntity } from '@shared/account';
+import { TransactionModule } from '@transaction/transaction';
 import {
   MESSAGE_BUS_PROVIDER,
   clientFactory,
@@ -12,7 +13,11 @@ import {
 } from '@shared/microservices';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AccountEntity]), CustomConfigModule],
+  imports: [
+    TypeOrmModule.forFeature([AccountEntity]),
+    CustomConfigModule,
+    forwardRef(() => TransactionModule),
+  ],
   controllers: [AccountController],
   providers: [
     {
@@ -30,4 +35,4 @@ import {
   ],
   exports: [AccountService],
 })
-export class AccountModule {}
+export class MicroserviceAccountModule {}

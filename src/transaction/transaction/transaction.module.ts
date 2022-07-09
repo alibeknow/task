@@ -1,7 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ConfigModule as CustomConfigModule } from '@shared/config';
-import { DatabaseModule } from '@shared/db';
 import { TransactionController } from './transaction.controller';
 import { TransactionService } from '@shared/transactions';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,9 +10,16 @@ import {
   clientFactory,
   RABBIT_TRANSACTION_SEND_QUEUE,
 } from '@shared/microservices';
+import { AccountModule } from '@gateway/accounts/account.module';
+import { TransactionProvider } from './transaction.provider';
+import { AccountEntity } from '../../shared/account/account.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TransactionsEntity]), CustomConfigModule],
+  imports: [
+    TypeOrmModule.forFeature([TransactionsEntity, AccountEntity]),
+    CustomConfigModule,
+    forwardRef(() => AccountModule),
+  ],
   controllers: [TransactionController],
   providers: [
     {
@@ -28,6 +34,7 @@ import {
       inject: [ConfigService, RABBIT_TRANSACTION_SEND_QUEUE],
     },
     TransactionService,
+    TransactionProvider,
   ],
   exports: [TransactionService],
 })

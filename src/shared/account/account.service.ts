@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AccountEntity } from '@shared/account';
+import { TransactionService } from '../transactions/transaction.service';
 
 @Injectable()
 export class AccountService {
