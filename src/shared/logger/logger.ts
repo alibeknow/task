@@ -8,7 +8,7 @@ const formatters = {
 
 export const logger: pino.Logger = pino({
   formatters,
-  mixinMergeStrategy(mergeObject, mixinObject) {
+  mixinMergeStrategy(mergeObject: any, mixinObject: any) {
     return Object.assign({}, mergeObject, mixinObject);
   },
 });

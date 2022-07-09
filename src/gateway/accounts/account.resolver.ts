@@ -1,12 +1,11 @@
-import { Args, Parent, ResolveField, Resolver, Int } from '@nestjs/graphql';
+import { Args, Parent, ResolveField, Resolver, Query } from '@nestjs/graphql';
 import { AccountService } from './account.service';
-import { Query } from '@nestjs/common';
 import { AccountSchema } from '@shared/account';
 import { TransactionSchema } from '@shared/transactions';
 import { TransactionService } from '@transaction/transaction';
 
-@Resolver((of) => AccountSchema)
-export class AuthorsResolver {
+@Resolver(() => AccountSchema)
+export class AccountResolver {
   constructor(
     private readonly accountService: AccountService,
     private readonly transactionService: TransactionService,
@@ -18,7 +17,7 @@ export class AuthorsResolver {
     if (account) return account;
   }
 
-  @ResolveField('transactions', (returns) => [TransactionSchema])
+  @ResolveField('transactions', () => [TransactionSchema])
   async getTransactions(@Parent() author: AccountSchema) {
     const { id } = author;
     return this.transactionService.getAllFrom(id);

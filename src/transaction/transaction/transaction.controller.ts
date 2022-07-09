@@ -13,10 +13,7 @@ export class TransactionController {
     @Ctx() context: RmqContext,
     @Payload() eventData: TransactionDto,
   ) {
-    await this.transactionService.processBlockRange(
-      eventData.blockFrom,
-      eventData.blockTo,
-    );
+    await this.transactionService.create(eventData);
     const channel = context.getChannelRef();
     channel.ack(context.getMessage());
   }

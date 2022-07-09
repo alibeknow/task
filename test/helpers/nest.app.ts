@@ -1,7 +1,7 @@
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { INestApplication } from '@nestjs/common';
 import { TestingModule } from '@nestjs/testing';
-import { configureAppMiddleware } from '@gateway/transaction';
+import { configureAppMiddleware } from '@gateway/configure-middleware';
 
 export const getNestApp = async (
   moduleRef: TestingModule,

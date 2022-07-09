@@ -10,7 +10,7 @@ import { ApiConfigService } from '../config/api-config.service';
       imports: [ConfigModule],
       inject: [ApiConfigService],
       useFactory: (configService: ApiConfigService) =>
-        configService.typeOrmConfig,
+        configService.postgresConfig,
     }),
   ],
 })

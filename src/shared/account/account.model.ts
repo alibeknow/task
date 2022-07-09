@@ -15,6 +15,6 @@ export class AccountSchema {
   @Field()
   lastName!: string;
 
-  @Field((type) => [TransactionSchema])
+  @Field((type) => [TransactionSchema], { nullable: 'items' })
   transactions!: TransactionSchema[];
 }

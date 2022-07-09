@@ -1,0 +1,92 @@
+version: '3.1'
+
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  mongodb_data: {}
+
+services:
+  account:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: account
+    command: npm run api:docker
+    restart: 'always'
+    ports:
+      - '8090:8090'
+    expose:
+      - 8090
+    networks:
+      - monitoring
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+
+  gateway:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: gateway
+    command: npm run gateway:docker
+    restart: 'no'
+    ports:
+      - '8083:8083'
+    expose:
+      - 8083
+    networks:
+      - monitoring
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+
+  transaction:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: transaction
+    command: npm run transaction:docker
+    restart: 'no'
+    ports:
+      - '8082:8082'
+    expose:
+      - 8082
+    networks:
+      - monitoring
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      TZ: 'GMT'
+      PGTZ: 'GMT'
+    ports:
+      - '5432:5432'
+    expose:
+      - 27017
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - monitoring
+
+  rabbitmq:
+    image: rabbitmq:3.10-management-alpine
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    expose:
+      - 5672
+      - 15672
+    networks:
+      - monitoring
