@@ -14,9 +14,9 @@ export class AccountEntity extends AbstractEntity {
   @Field()
   lastName!: string;
 
-  @Column({ type: 'decimal' })
+  @Column({ type: 'int' })
   @Field()
-  balance!: string;
+  balance!: number;
 
   @OneToMany((type) => TransactionsEntity, (transaction) => transaction.account)
   @Field((type) => [TransactionsEntity], { nullable: 'items' })

@@ -1,24 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { TransactionStatus } from './transaction.entity';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionsEntity } from '@shared/transactions';
 import { Repository } from 'typeorm';
 import { TransactionDto } from '@transaction/transaction';
+import { AccountService } from '../account/account.service';
 
 @Injectable()
 export class TransactionService {
   constructor(
     @InjectRepository(TransactionsEntity)
-    private transactionRepository: Repository<TransactionsEntity>,
+    private readonly transactionRepository: Repository<TransactionsEntity>,
+    @Inject(forwardRef(() => AccountService))
+    private readonly accountService: AccountService,
   ) {}
 
-  create(eventData: TransactionDto): Promise<TransactionsEntity> {
-    const transactionInstance = this.transactionRepository.create({
-      to: eventData.to,
-      from: eventData.from,
-      money: eventData.money,
-      message: eventData.message,
-    });
-    return this.transactionRepository.save(transactionInstance);
+  async create(eventData: TransactionDto): Promise<TransactionsEntity | void> {
+    const result = await this.accountService.checkBalance(
+      eventData.from,
+      eventData.money,
+    );
+    if (result) {
+      const transactionInstance = this.transactionRepository.create({
+        to: eventData.to,
+        from: eventData.from,
+        money: eventData.money,
+        message: eventData.message,
+        transactionStatus: TransactionStatus.SUCCESSFUL,
+      });
+      return this.transactionRepository.save(transactionInstance);
+    }
+    return;
   }
 
   get(id: string): Promise<TransactionsEntity | null> {

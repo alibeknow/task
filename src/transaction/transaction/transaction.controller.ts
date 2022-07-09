@@ -3,6 +3,7 @@ import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices';
 import { ServiceEvents } from '@shared/microservices';
 import { TransactionService } from '@shared/transactions';
 import { TransactionDto } from './transaction.dtos';
+import { logger } from '../../shared/logger/logger';
 
 @Controller()
 export class TransactionController {
@@ -13,9 +14,14 @@ export class TransactionController {
     @Ctx() context: RmqContext,
     @Payload() eventData: TransactionDto,
   ) {
-    console.log(eventData);
-    await this.transactionService.create(eventData);
-    const channel = context.getChannelRef();
-    channel.ack(context.getMessage());
+    logger.info(eventData, 'recieve the message');
+    try {
+      const data = await this.transactionService.create(eventData);
+      const channel = context.getChannelRef();
+      channel.ack(context.getMessage());
+      return data;
+    } catch (error) {
+      return error;
+    }
   }
 }

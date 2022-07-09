@@ -18,7 +18,9 @@ export class AccountService {
     return this.accountRepository.findOneBy({ id });
   }
 
-  async remove(id: string): Promise<void> {
-    await this.accountRepository.delete(id);
+  async checkBalance(from: string, money: number): Promise<boolean> {
+    const resulter = await this.accountRepository.findOneBy({ id: from });
+    if (resulter && resulter.balance > money) return true;
+    return false;
   }
 }

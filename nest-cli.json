@@ -15,7 +15,7 @@
       "type": "application",
       "root": "src/transaction",
       "sourceRoot": "src/transaction",
-      "entryFile": "transaction/main",
+      "entryFile": "src/transaction/main",
       "compilerOptions": {
         "tsConfigPath": "./tsconfig.json"
       }

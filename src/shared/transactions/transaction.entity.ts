@@ -12,17 +12,17 @@ export enum TransactionStatus {
 @Entity()
 @ObjectType({ description: 'transaction' })
 export class TransactionsEntity extends AbstractEntity {
-  @Column()
-  @Field()
+  @Field((type) => [AccountEntity], { nullable: 'items' })
+  @ManyToOne((type) => AccountEntity, (account) => account.transactions)
   from!: string;
 
-  @Column()
-  @Field()
+  @Field((type) => [AccountEntity], { nullable: 'items' })
+  @ManyToOne((type) => AccountEntity, (account) => account.transactions)
   to!: string;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2 })
+  @Column({ type: 'int' })
   @Field()
-  money!: string;
+  money!: number;
 
   @Column({ nullable: true })
   @Field({ nullable: true })

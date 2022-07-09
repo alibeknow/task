@@ -8,7 +8,7 @@ export class TransactionDto {
   public readonly to!: string;
 
   @IsDecimal()
-  public readonly money!: string;
+  public readonly money!: number;
 
   @IsString()
   public readonly message!: string;
