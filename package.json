@@ -23,7 +23,11 @@
     "gateway:docker": "node -r ./paths-overwrite.js dist/api/main.js",
     "start:docker": "docker-compose up -d",
     "stop:docker": "docker-compose down -v",
-    "start:rabbit": "docker-compose up -d rabbitmq"
+    "start:rabbit": "docker-compose up -d rabbitmq",
+    "typeorm": "ts-node node_modules/typeorm/cli.js -f ormconfig",
+    "migration:generate": "npm run typeorm migration:generate -d src/database/migrations -n init",
+    "migration:create": "npm run typeorm migration:create -d migrations -n",
+    "migration:revert": "npm run typeorm migration:revert"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.0.17",
