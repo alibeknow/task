@@ -35,14 +35,12 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
-$ npm run start
+# gateway
+$ npm run gateway
 
-# watch mode
-$ npm run start:dev
+# transaction
+$ npm run transaction
 
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
