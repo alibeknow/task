@@ -57,8 +57,8 @@ export class ApiConfigService {
 
   get postgresConfig(): TypeOrmModuleOptions {
     let entities = [
-      __dirname + '/../../modules/**/*.entity{.ts,.js}',
-      __dirname + '/../../modules/**/*.view-entity{.ts,.js}',
+      __dirname + '/../../**/*.entity{.ts,.js}',
+      __dirname + '/../../**/*.view-entity{.ts,.js}',
     ];
     let migrations = [__dirname + '/../../database/migrations/*{.ts,.js}'];
 
@@ -91,16 +91,12 @@ export class ApiConfigService {
     return {
       entities,
       migrations,
-      keepConnectionAlive: !this.isTest,
-      dropSchema: this.isTest,
       type: 'postgres',
-      name: 'default',
       host: this.getString('DB_HOST'),
       port: this.getNumber('DB_PORT'),
       username: this.getString('DB_USERNAME'),
       password: this.getString('DB_PASSWORD'),
       database: this.getString('DB_DATABASE'),
-      migrationsRun: true,
       synchronize: true,
       logging: this.getBoolean('ENABLE_ORM_LOGS'),
       namingStrategy: new SnakeNamingStrategy(),
