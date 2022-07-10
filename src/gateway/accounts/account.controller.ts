@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { AccountService } from '../../shared/account/account.service';
-import { MESSAGE_BUS_PROVIDER } from '../../shared/microservices/constants';
-import { ServiceEvents } from '../../shared/microservices/services.types';
-import { TransactionDto } from '../../transaction/transaction/transaction.dtos';
-import { logger } from '../../shared/logger/logger';
+import { AccountService, AccountEntity } from '@shared/account';
+import { MESSAGE_BUS_PROVIDER, ServiceEvents } from '@shared/microservices';
+import { TransactionDto } from '@transaction/transaction';
+import { logger } from '@shared/logger';
+import { AccountDto } from './dto/account.dto';
 
 @Controller()
 export class AccController {
@@ -14,13 +14,23 @@ export class AccController {
     @Inject(MESSAGE_BUS_PROVIDER) private messageBusClient: ClientProxy,
   ) {}
 
-  @Get()
+  @Post('createAccount')
+  async createAccount(@Body() accountDto: AccountDto): Promise<AccountEntity> {
+    return this.accountService.create(accountDto);
+  }
+
+  @Get('accounts/:id')
+  getAccount(@Param('id') id: string) {
+    return this.accountService.findOne(id);
+  }
+
+  @Get('accounts')
   getAccounts() {
     return this.accountService.findAll();
   }
-  @Post()
+  @Post('sendmoney')
   async sendMoney(@Body() metadataEvent: TransactionDto) {
-    console.log(metadataEvent)
+    console.log(metadataEvent);
     try {
       return await lastValueFrom(
         this.messageBusClient.emit(
