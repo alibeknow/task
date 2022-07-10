@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     container_name: account
-    command: npm run api:docker
+    command: npm run account
     restart: 'always'
     ports:
       - '8090:8090'
