@@ -67,6 +67,7 @@ services:
     container_name: postgres
     restart: always
     environment:
+      POSTGRES_MULTIPLE_DATABASES: task
       POSTGRES_PASSWORD: postgres
       TZ: 'GMT'
       PGTZ: 'GMT'
@@ -75,7 +76,7 @@ services:
     expose:
       - 27017
     volumes:
-      - db:/var/lib/postgresql/data
+      - ../docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
     networks:
       - monitoring
 

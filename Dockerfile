@@ -9,7 +9,7 @@ WORKDIR ${BUILD_DIR}
 
 COPY package*.json tsconfig.json ./
 COPY src ./src
-RUN npm ci && npm run build
+RUN npm ci && npm run build && npm run seeds:run
 
 #
 # Production stage.
