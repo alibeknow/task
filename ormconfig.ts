@@ -1,5 +1,5 @@
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { SnakeNamingStrategy } from '@shared/snake-naming.strategy';
+import { SnakeNamingStrategy } from './src/shared/snake-naming.strategy';
 
 const configs: TypeOrmModuleOptions & { seeds: string[]; factories: string[] } =
   {

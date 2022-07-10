@@ -28,6 +28,6 @@ import { ConfigService } from '@nestjs/config';
     },
   ],
   controllers: [AccController],
-  exports: [AccountService],
+  exports: [AccountService, AccountResolver],
 })
 export class AccountModule {}

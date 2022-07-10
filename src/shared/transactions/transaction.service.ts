@@ -1,8 +1,7 @@
-import { TransactionStatus } from './transaction.entity';
+import { TransactionStatus, TransactionsEntity } from './transaction.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TransactionsEntity } from '@shared/transactions';
-import { Repository } from 'typeorm';
+import { Repository, getConnection, Transaction } from 'typeorm';
 import { TransactionDto } from '@transaction/transaction';
 
 @Injectable()
@@ -13,21 +12,19 @@ export class TransactionService {
   ) {}
 
   async create(eventData: TransactionDto): Promise<TransactionsEntity | void> {
-    const result = true;
-    if (result) {
-      const transactionInstance = this.transactionRepository.create({
+    const transactionInstance = this.transactionRepository.create({
         to: eventData.to,
         from: eventData.from,
         money: eventData.money,
         message: eventData.message,
         transactionStatus: TransactionStatus.SUCCESSFUL,
       });
-      return this.transactionRepository.save(transactionInstance);
-    }
-    return;
+      const transactionResult= this.transactionRepository.save(transactionInstance);
+      return transactionResult
+    
   }
 
-  get(id: string): Promise<TransactionsEntity | null> {
+  get(id: string): Promise<TransactionsEntity | undefined | null> {
     return this.transactionRepository.findOne({ where: { id } });
   }
   getAllTo(owner: string) {

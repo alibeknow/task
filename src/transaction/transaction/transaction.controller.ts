@@ -12,14 +12,12 @@ export class TransactionController {
 
   @EventPattern(ServiceEvents.TRANSACTION_SEND)
   async eventHandler(
-    @Ctx() context: RmqContext,
     @Payload() eventData: TransactionDto,
   ) {
     logger.info(eventData, 'recieve the message');
     try {
       const data = await this.transactionService.checkAndCreate(eventData);
-      const channel = context.getChannelRef();
-      channel.ack(context.getMessage());
+      console.log('RECIEVED', data);
       return data;
     } catch (error) {
       return error;

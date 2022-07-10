@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { Args, Resolver, Query } from '@nestjs/graphql';
+import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
 import { AccountService } from '@shared/account';
 import { AccountEntity } from '@shared/account';
 import { MESSAGE_BUS_PROVIDER, ServiceEvents } from '@shared/microservices';
@@ -21,6 +21,7 @@ export class AccountResolver {
     if (account) return account;
   }
 
+  @Mutation((returns) => AccountEntity)
   async sendMoney(metadataEvent: TransactionDto) {
     try {
       await lastValueFrom(

@@ -1,7 +1,7 @@
 import { Entity, Column, OneToMany } from 'typeorm';
-import { AbstractEntity } from '@shared/abstract.entity';
-import { TransactionsEntity } from '@shared/transactions';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { AbstractEntity } from '../abstract.entity';
+import { TransactionsEntity } from '../transactions';
 
 @Entity()
 @ObjectType({ description: 'account' })

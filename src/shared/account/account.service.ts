@@ -1,8 +1,7 @@
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AccountEntity } from '@shared/account';
-import { TransactionService } from '../transactions/transaction.service';
+import { AccountEntity } from './account.entity';
 
 @Injectable()
 export class AccountService {
@@ -15,12 +14,12 @@ export class AccountService {
     return this.accountRepository.find();
   }
 
-  findOne(id: string): Promise<AccountEntity | null> {
-    return this.accountRepository.findOneBy({ id });
+  findOne(id: string): Promise<AccountEntity | undefined> {
+    return this.accountRepository.findOne({ id });
   }
 
   async checkBalance(from: string, money: number): Promise<boolean> {
-    const resulter = await this.accountRepository.findOneBy({ id: from });
+    const resulter = await this.accountRepository.findOne({ id: from });
     if (resulter && resulter.balance > money) return true;
     return false;
   }

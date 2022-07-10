@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { AccountService } from '../../shared/account/account.service';
@@ -19,15 +19,10 @@ export class AccController {
     return this.accountService.findAll();
   }
   @Post()
-  async sendMoney(metadataEvent: TransactionDto) {
-    metadataEvent = {
-      from: 'd5eff206-c154-4617-8fa2-8c6247b6bc5d',
-      to: '496a9556-f716-4c65-b940-7778faf8e246',
-      message: 'hellw',
-      money: 2011,
-    };
+  async sendMoney(@Body() metadataEvent: TransactionDto) {
+    console.log(metadataEvent)
     try {
-      await lastValueFrom(
+      return await lastValueFrom(
         this.messageBusClient.emit(
           ServiceEvents.TRANSACTION_SEND,
           metadataEvent,
@@ -35,6 +30,7 @@ export class AccController {
       );
     } catch (error) {
       logger.error(error, 'error when sending message');
+      return error;
     }
   }
 }
