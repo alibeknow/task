@@ -21,6 +21,6 @@ ENV BUILD_DIR /usr/local/src/build
 ENV NODE_ENV production
 WORKDIR ${APP_DIR}
 
-COPY package*.json tsconfig.json paths-overwrite.js ./
+COPY package*.json tsconfig.json paths-overwrite.js ormconfig.ts ./
 COPY --from=ts-builder ${BUILD_DIR}/dist ./dist
 COPY --from=ts-builder ${BUILD_DIR}/node_modules ./node_modules
