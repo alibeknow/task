@@ -7,7 +7,7 @@ FROM node:16.15-alpine3.15 as ts-builder
 ENV BUILD_DIR /usr/local/src/build
 WORKDIR ${BUILD_DIR}
 
-COPY package*.json tsconfig.json ormconfig.ts ./
+COPY package*.json tsconfig.json ormconfig.ts tsconfig.build.json ./
 COPY src ./src
 RUN npm install && npm run build
 
@@ -21,6 +21,6 @@ ENV BUILD_DIR /usr/local/src/build
 ENV NODE_ENV production
 WORKDIR ${APP_DIR}
 
-COPY package*.json tsconfig.json paths-overwrite.js ormconfig.ts ./
+COPY package*.json tsconfig.json paths-overwrite.js ormconfig.ts tsconfig.build.json ./
 COPY --from=ts-builder ${BUILD_DIR}/dist ./dist
 COPY --from=ts-builder ${BUILD_DIR}/node_modules ./node_modules
