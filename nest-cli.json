@@ -6,7 +6,7 @@
       "type": "application",
       "root": "src/account",
       "sourceRoot": "src/account",
-      "entryFile": "account/main",
+      "entryFile": "src/account/main",
       "compilerOptions": {
         "tsConfigPath": "./tsconfig.json"
       }
