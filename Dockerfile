@@ -7,9 +7,9 @@ FROM node:16.15-alpine3.15 as ts-builder
 ENV BUILD_DIR /usr/local/src/build
 WORKDIR ${BUILD_DIR}
 
-COPY package*.json tsconfig.json ./
+COPY package*.json tsconfig.json ormconfig.ts ./
 COPY src ./src
-RUN npm ci && npm run build && npm run seeds:run
+RUN npm install && npm run build
 
 #
 # Production stage.
