@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  ParseUUIDPipe,
+  Post,
+} from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { AccountService, AccountEntity } from '@shared/account';
@@ -19,8 +27,8 @@ export class AccController {
     return this.accountService.create(accountDto);
   }
 
-  @Get('accounts/:id')
-  getAccount(@Param('id') id: string) {
+  @Get('account/:id')
+  getAccount(@Param('id', ParseUUIDPipe) id: string) {
     return this.accountService.findOne(id);
   }
 

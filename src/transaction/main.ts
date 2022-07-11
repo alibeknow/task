@@ -4,11 +4,13 @@ import {
   RABBIT_TRANSACTION_SEND_QUEUE,
   bootstrapMicroservice,
 } from '@shared/microservices';
-import { AppModule } from './app.module';
+import { AppTransactionModule } from './app.module';
 import { logger } from '@shared/logger';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(
+    AppTransactionModule,
+  );
 
   app.enableShutdownHooks();
   await bootstrapMicroservice(app, RABBIT_TRANSACTION_SEND_QUEUE);

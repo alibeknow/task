@@ -1,23 +1,11 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '@shared/db';
 import { ConfigModule } from '@shared/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AccountModule } from './accounts/account.module';
+import { DatabaseModule } from '../shared/db/db.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    DatabaseModule,
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      debug: true,
-      playground: true,
-      autoSchemaFile: true,
-      sortSchema: true,
-      installSubscriptionHandlers: true,
-    }),
-    AccountModule,
-  ],
+  imports: [DatabaseModule, ConfigModule, AccountModule],
 })
 export class AppGatewayModule {}

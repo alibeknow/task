@@ -6,4 +6,4 @@ import { TransactionModule } from './transaction';
 @Module({
   imports: [ConfigModule, TransactionModule, DatabaseModule],
 })
-export class AppModule {}
+export class AppTransactionModule {}

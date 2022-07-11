@@ -2,6 +2,7 @@ import helmet from 'helmet';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import compression from 'compression';
+import { ResponseInterceptor } from './response';
 
 export const configureAppMiddleware = (app: NestExpressApplication): void => {
   app.useGlobalPipes(
@@ -15,4 +16,5 @@ export const configureAppMiddleware = (app: NestExpressApplication): void => {
 
   app.use(helmet());
   app.use(compression());
+  app.useGlobalInterceptors(new ResponseInterceptor());
 };

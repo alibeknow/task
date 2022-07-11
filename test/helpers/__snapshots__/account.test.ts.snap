@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Metadata endpoints] [GET account] should return 400 error if validation doesn\`t pass 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Validation failed (uuid  is expected)",
+  "statusCode": 400,
+}
+`;
+
+exports[`[Metadata endpoints] [GET account] should return 404 error if requested item doesn\`t exist in our DB 1`] = `
+Object {
+  "error": "Not Found",
+  "message": "Cannot GET /blahblah",
+  "statusCode": 404,
+}
+`;
+
+exports[`[Metadata endpoints] [GET account] should return correct result based on request params 1`] = `
+Object {
+  "result": Object {
+    "balance": 40000,
+    "createdAt": "2022-07-11T05:22:49.029Z",
+    "firstName": "firstAccount",
+    "id": "1c7b3d22-bfe7-4fcb-8c00-f77039da065b",
+    "lastName": "firstAccount",
+    "updatedAt": "2022-07-11T05:22:49.029Z",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`[Metadata endpoints] [GET account] should return correct result based on request params 2`] = `
+Object {
+  "result": Object {
+    "balance": 10000,
+    "createdAt": "2022-07-11T05:22:49.029Z",
+    "firstName": "secondaccount",
+    "id": "20863556-645c-4db4-a2be-cabcbe324f99",
+    "lastName": "secondaccount",
+    "updatedAt": "2022-07-11T05:22:49.029Z",
+  },
+  "statusCode": 200,
+}
+`;

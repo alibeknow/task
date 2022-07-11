@@ -15,7 +15,7 @@
     "account": "npx nest start account --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "test": "npx jest -c jest.config.js",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "gateway:docker": "node -r ./paths-overwrite.js dist/src/gateway/main.js",
     "transaction:docker": "node -r ./paths-overwrite.js dist/src/transaction/main.js",

@@ -6,7 +6,7 @@
       "type": "application",
       "root": "src/account",
       "sourceRoot": "src/account",
-      "entryFile": "src/account/main",
+      "entryFile": "account/main",
       "compilerOptions": {
         "tsConfigPath": "./tsconfig.json"
       }
@@ -15,7 +15,7 @@
       "type": "application",
       "root": "src/transaction",
       "sourceRoot": "src/transaction",
-      "entryFile": "src/transaction/main",
+      "entryFile": "transaction/main",
       "compilerOptions": {
         "tsConfigPath": "./tsconfig.json"
       }
@@ -24,7 +24,7 @@
       "type": "application",
       "root": "src/gateway",
       "sourceRoot": "src/gateway",
-      "entryFile": "src/gateway/main",
+      "entryFile": "gateway/main",
       "compilerOptions": {
         "tsConfigPath": "./tsconfig.json"
       }

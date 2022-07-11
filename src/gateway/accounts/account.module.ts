@@ -14,7 +14,6 @@ import { ConfigService } from '@nestjs/config';
   imports: [TypeOrmModule.forFeature([AccountEntity])],
   providers: [
     AccountService,
-    AccountResolver,
     {
       provide: RABBIT_TRANSACTION_SEND_QUEUE,
       useFactory: (configService: ConfigService) =>
@@ -28,6 +27,6 @@ import { ConfigService } from '@nestjs/config';
     },
   ],
   controllers: [AccController],
-  exports: [AccountService, AccountResolver],
+  exports: [AccountService],
 })
 export class AccountModule {}
