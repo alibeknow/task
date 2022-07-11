@@ -47,19 +47,16 @@ $ npm run transaction
 ## Test
 
 ```bash
-# unit tests
+# tests e2e
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+## Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+GET localhost:3000/createAccount
+GET localhost:3000/account/:id
+GET localhost:3000/accounts
+POST localhost:3000/sendmoney
 
 ## Stay in touch
 
