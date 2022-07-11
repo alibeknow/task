@@ -12,6 +12,8 @@ import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { TransactionsEntity } from '@shared/transactions';
 import {getConnection} from 'typeorm'
+import { ConfigModule } from '@shared/config';
+import { TransactionModule } from '@transaction/transaction';
 
 async function insertDataAccount(connection: Connection) {
   const accounts = [
@@ -58,7 +60,7 @@ describe('[Metadata endpoints]', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [DatabaseModule],
+      imports: [TransactionModule,DatabaseModule,ConfigModule],
     }).compile();
 
     app = await getNestApp(moduleRef);
@@ -81,8 +83,7 @@ describe('[Metadata endpoints]', () => {
           money: 2011,
         }),
       );
-      await setTimeout(15000);
-      expect(result).toBe(true);
+       expect(result).toBe(true);
     });
  
 
