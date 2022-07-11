@@ -54,10 +54,28 @@ $ npm run test
 
 ## Endpoints
 
-GET localhost:3000/createAccount
-GET localhost:3000/account/:id
-GET localhost:3000/accounts
-POST localhost:3000/sendmoney
+GET localhost:3000/createAccount <br/>
+GET localhost:3000/account/:id <br/>
+GET localhost:3000/accounts <br/>
+POST localhost:3000/sendmoney <br/>
+
+# payload
+
+```typescript
+export class TransactionDto {
+  @IsString()
+  public readonly from!: string;
+
+  @IsString()
+  public readonly to!: string;
+
+  @IsDecimal()
+  public readonly money!: number;
+
+  @IsString()
+  public readonly message!: string;
+}
+```
 
 ## Stay in touch
 
