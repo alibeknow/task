@@ -36,10 +36,11 @@ $ npm run seed:run
 ## Running the app
 
 ```bash
-# gateway
+$ git clone path/to/git/repository.git
+$ npm i
+$ npm run start:pg
+$ npm run start:rabbit
 $ npm run gateway
-
-# transaction
 $ npm run transaction
 
 ```
