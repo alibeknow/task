@@ -30,7 +30,7 @@
 
 ```bash
 $ npm install
-$ npm run seed:run
+$ npm run seed:run #if you want create some TEST DATA and test it manually
 ```
 
 ## Running the app
